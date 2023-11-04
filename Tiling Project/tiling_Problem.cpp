@@ -98,9 +98,9 @@ int **divide_And_Conquer(int nn, int locx, int locy, int **array)
 
     print_it(array);
 
-    divide_And_Conquer(nn / 2, locx, locy + (nn / 2), array);
-
     divide_And_Conquer(nn / 2, locx, locy, array);
+
+    divide_And_Conquer(nn / 2, locx, locy + (nn / 2), array);
 
     divide_And_Conquer(nn / 2, locx + (nn / 2), locy, array);
 
