@@ -126,10 +126,10 @@ int main()
             array[i][j] = 0;
 
     // get point that won't tiling
-    cout << "Enter row and column that you won't tiling : ";
+    cout << "Enter row that you won't tiling : ";
     int row, column;
     cin >> row;
-    cout << "\nEnter row and column that you won't tiling : ";
+    cout << "\nEnter column that you won't tiling : ";
     cin >> column;
     cout << endl;
     if (row < nn && column < nn)
