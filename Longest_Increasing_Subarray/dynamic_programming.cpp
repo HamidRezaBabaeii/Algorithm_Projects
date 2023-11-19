@@ -13,8 +13,8 @@ int *find_longest_increasing_subarray(int *array, int n)
     for (int i = 1; i < n; i++) {
         LIS[i] = 1;
         for (int j = 0; j < i; j++)
-            if (array[i] > array[j] && LIS[i] < LIS[j] + 1)
-                LIS[i] = LIS[j] + 1;
+            if (array[i] > array[j])
+                LIS[i] = max(LIS[j] + 1,LIS[i]);
     }
  
     return LIS;
