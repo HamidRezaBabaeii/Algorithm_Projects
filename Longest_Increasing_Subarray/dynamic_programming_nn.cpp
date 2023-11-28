@@ -1,29 +1,10 @@
-#include <stdio.h>
 #include <iostream>
-#include <list>
-#include <bits/stdc++.h>
+#include <stdio.h>
 
 using namespace std;
 
-int *find_longest_increasing_subarray(int *array, int n)
-{
-    int *LIS;
-    LIS[0] = 1;
-
-    for (int i = 1; i < n; i++) {
-        LIS[i] = 1;
-        for (int j = 0; j < i; j++)
-            if (array[i] > array[j])
-                LIS[i] = max(LIS[j] + 1,LIS[i]);
-    }
- 
-    return LIS;
-}
-
-
 int main()
 {
-
     // get array number
     int n;
     cout << "Please Enter the Array number:";
@@ -39,37 +20,42 @@ int main()
         cin >> array[i];
     }
     cout << endl;
-    int* arr =  find_longest_increasing_subarray(array,n) ;
 
-    // find max
-    int index_of_max = 0;
-    int max = arr[0];
-    for(int i=1 ; i<n ; i++){
-        if(  max < arr[i])
-        {
-            max = arr[i];
-            index_of_max = i;
-        }
-    }
-    cout << "Max length of Subarray: " << max << endl;
+    int LIS[n];
+    fill(LIS, LIS + n, 1);
 
-    // print subarray
-    list<int> lis;
-    for(int i=index_of_max ; i>=0 ; i--)
+    int finalArray[n];
+    fill(finalArray, finalArray + n, -1);
+
+    int max_LIS_index = LIS[0], final_Max_Index = 0;
+    for (int i = 1; i < n; i++)
     {
-        if(max == arr[i])
+        int max = 0;
+        for (int j = 0; j < i; j++)
         {
-            lis.push_back(array[i]);
-            max--;
+            if (array[j] < array[i] && LIS[j] > max)
+            {
+                max = LIS[j];
+                finalArray[i] = j;
+                
+            }
         }
+        LIS[i] = max + 1;
+        if (LIS[i] > max_LIS_index)
+            max_LIS_index = LIS[i];
+        
+        if (finalArray[i] > finalArray[final_Max_Index] && LIS[final_Max_Index]<LIS[i])
+                    final_Max_Index = i;
     }
-    lis.reverse();
-    list<int>::iterator it;
-    cout << "Sub Array :" << endl;
-    for(it = lis.begin() ; it != lis.end() ; it++){
-        cout << *it << " ";
-    }
-    cout << endl;
 
-    return 0;
+    cout << "Longest Increasing Subsequence length: " << max_LIS_index << "\n";
+
+    while (final_Max_Index != -1)
+    {
+        cout << array[final_Max_Index];
+        int i = finalArray[final_Max_Index];
+        final_Max_Index = i;
+        if (final_Max_Index != -1)
+            cout << " > ";
+    }
 }
