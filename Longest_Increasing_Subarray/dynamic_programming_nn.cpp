@@ -27,7 +27,7 @@ int main()
     int finalArray[n];
     fill(finalArray, finalArray + n, -1);
 
-    int max_LIS_index = LIS[0];
+    int max_LIS_index = LIS[0], final_Max_Index = 0;
     for (int i = 1; i < n; i++)
     {
         int max = 0;
@@ -36,15 +36,26 @@ int main()
             if (array[j] < array[i] && LIS[j] > max)
             {
                 max = LIS[j];
-                finalArray[i]=j;
+                finalArray[i] = j;
+                
             }
         }
         LIS[i] = max + 1;
         if (LIS[i] > max_LIS_index)
-        {
             max_LIS_index = LIS[i];
-        }
+        
+        if (finalArray[i] > finalArray[final_Max_Index] && LIS[final_Max_Index]<LIS[i])
+                    final_Max_Index = i;
     }
 
-    cout << max_LIS_index << "\n";
+    cout << "Longest Increasing Subsequence length: " << max_LIS_index << "\n";
+
+    while (final_Max_Index != -1)
+    {
+        cout << array[final_Max_Index];
+        int i = finalArray[final_Max_Index];
+        final_Max_Index = i;
+        if (final_Max_Index != -1)
+            cout << " > ";
+    }
 }
